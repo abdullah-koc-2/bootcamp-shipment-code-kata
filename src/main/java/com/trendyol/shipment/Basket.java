@@ -7,21 +7,23 @@ import java.util.Map;
 
 public class Basket {
 
+    private static final Integer SHIPMENT_SIZE_CHANGE_THRESHOLD = 3;
+
     private List<Product> products;
 
     public ShipmentSize getShipmentSize() {
         ShipmentSize resultSize = ShipmentSize.SMALL;
-        boolean doesHaveThree = false;
+        boolean doesHaveThreshold = false;
         Map<ShipmentSize, Integer> productSizes = getProductSizes();
 
         for (ShipmentSize s : productSizes.keySet())
         {
-            if(productSizes.get(s) >= 3) {
-                doesHaveThree = true;
+            if(productSizes.get(s) >= SHIPMENT_SIZE_CHANGE_THRESHOLD) {
+                doesHaveThreshold = true;
                 resultSize = ShipmentSize.getUpperLevel(s).ordinal() > resultSize.ordinal() ? ShipmentSize.getUpperLevel(s) : resultSize;
             }
         }
-        if(!doesHaveThree) {
+        if(!doesHaveThreshold) {
             return productSizes.keySet().stream().max(Comparator.comparing(Enum::ordinal)).orElse(ShipmentSize.SMALL);
         }
         return resultSize;
