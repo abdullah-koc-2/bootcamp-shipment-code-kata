@@ -8,6 +8,6 @@ public enum ShipmentSize {
     X_LARGE;
 
     public static ShipmentSize getUpperLevel(ShipmentSize s) {
-        return s != X_LARGE ? ShipmentSize.values()[s.ordinal() + 1] : X_LARGE;
+        return s != X_LARGE ? ShipmentSize.values()[s.ordinal() + 1] : ShipmentSize.values()[ShipmentSize.values().length - 1];
     }
 }
