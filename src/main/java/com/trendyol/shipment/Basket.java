@@ -18,7 +18,7 @@ public class Basket {
         {
             if(productSizes.get(s) >= 3) {
                 doesHaveThree = true;
-                resultSize = ShipmentSize.getUpperLevel(s);
+                resultSize = ShipmentSize.getUpperLevel(s).ordinal() > resultSize.ordinal() ? ShipmentSize.getUpperLevel(s) : resultSize;
             }
         }
         if(!doesHaveThree) {
